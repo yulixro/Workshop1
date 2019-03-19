@@ -67,12 +67,114 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\fontawesome.css" />
+    <Content Include="css\fonts\DejaVu\LICENSE.txt" />
+    <Content Include="css\fonts\glyphs\KendoUIGlyphs.svg" />
+    <Content Include="css\fonts\glyphs\WebComponentsIcons.svg" />
+    <Content Include="css\kendo.common-material.min.css" />
+    <Content Include="css\kendo.material.min.css" />
+    <Content Include="css\kendo.materialblack.min.css" />
+    <Content Include="css\MaterialBlack\editor.png" />
+    <Content Include="css\MaterialBlack\imagebrowser.png" />
+    <Content Include="css\MaterialBlack\indeterminate.gif" />
+    <Content Include="css\MaterialBlack\loading-image.gif" />
+    <Content Include="css\MaterialBlack\loading.gif" />
+    <Content Include="css\MaterialBlack\loading_2x.gif" />
+    <Content Include="css\MaterialBlack\markers.png" />
+    <Content Include="css\MaterialBlack\markers_2x.png" />
+    <Content Include="css\MaterialBlack\slider-h.gif" />
+    <Content Include="css\MaterialBlack\slider-v.gif" />
+    <Content Include="css\MaterialBlack\sprite.png" />
+    <Content Include="css\MaterialBlack\sprite_2x.png" />
+    <Content Include="css\MaterialBlack\sprite_kpi.png" />
+    <Content Include="css\MaterialBlack\sprite_kpi_2x.png" />
+    <Content Include="css\Material\editor.png" />
+    <Content Include="css\Material\imagebrowser.png" />
+    <Content Include="css\Material\indeterminate.gif" />
+    <Content Include="css\Material\loading-image.gif" />
+    <Content Include="css\Material\loading.gif" />
+    <Content Include="css\Material\loading_2x.gif" />
+    <Content Include="css\Material\markers.png" />
+    <Content Include="css\Material\markers_2x.png" />
+    <Content Include="css\Material\slider-h.gif" />
+    <Content Include="css\Material\slider-v.gif" />
+    <Content Include="css\Material\sprite.png" />
+    <Content Include="css\Material\sprite_2x.png" />
+    <Content Include="css\Material\sprite_kpi.png" />
+    <Content Include="css\Material\sprite_kpi_2x.png" />
+    <Content Include="css\style.css" />
+    <Content Include="css\textures\brushed-metal.png" />
+    <Content Include="css\textures\dots1.png" />
+    <Content Include="css\textures\dots10.png" />
+    <Content Include="css\textures\dots11.png" />
+    <Content Include="css\textures\dots12.png" />
+    <Content Include="css\textures\dots13.png" />
+    <Content Include="css\textures\dots2.png" />
+    <Content Include="css\textures\dots3.png" />
+    <Content Include="css\textures\dots4.png" />
+    <Content Include="css\textures\dots5.png" />
+    <Content Include="css\textures\dots6.png" />
+    <Content Include="css\textures\dots7.png" />
+    <Content Include="css\textures\dots8.png" />
+    <Content Include="css\textures\dots9.png" />
+    <Content Include="css\textures\glass-lighter.png" />
+    <Content Include="css\textures\glass.png" />
+    <Content Include="css\textures\highlight.png" />
+    <Content Include="css\textures\hsv-gradient.png" />
+    <Content Include="css\textures\hue.png" />
+    <Content Include="css\textures\leather1.png" />
+    <Content Include="css\textures\leather2.png" />
+    <Content Include="css\textures\noise.png" />
+    <Content Include="css\textures\stripe1.png" />
+    <Content Include="css\textures\stripe2.png" />
+    <Content Include="css\textures\stripe3.png" />
+    <Content Include="css\textures\stripe4.png" />
+    <Content Include="css\textures\stripe5.png" />
+    <Content Include="css\textures\stripe6.png" />
+    <Content Include="css\textures\transparency.png" />
+    <Content Include="css\textures\transtexture.png" />
+    <Content Include="css\uikit.min.css" />
+    <Content Include="data\book-data.js" />
+    <Content Include="image\database.jpg" />
+    <Content Include="image\home.jpg" />
+    <Content Include="image\internet.jpg" />
+    <Content Include="image\language.jpg" />
+    <Content Include="image\system.jpg" />
+    <Content Include="index.html" />
+    <Content Include="js\jquery-2.1.4.min.js" />
+    <Content Include="js\kendo.all.min.js" />
+    <Content Include="js\kendo.culture.zh-TW.min.js" />
+    <Content Include="js\kendo.messages.zh-TW.min.js" />
+    <Content Include="js\script.js" />
+    <Content Include="js\uikit.min.js" />
     <Content Include="Web.config" />
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\fonts\DejaVu\DejaVuSans-Bold.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSans-ExtraLight.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSans-Oblique.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSans.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSansMono-Bold.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSansMono-BoldOblique.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSansMono-Oblique.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSansMono.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSerif-Bold.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSerif-BoldItalic.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSerif-Italic.ttf" />
+    <Content Include="css\fonts\DejaVu\DejaVuSerif.ttf" />
+    <Content Include="css\fonts\glyphs\KendoUIGlyphs.eot" />
+    <Content Include="css\fonts\glyphs\KendoUIGlyphs.ttf" />
+    <Content Include="css\fonts\glyphs\KendoUIGlyphs.woff" />
+    <Content Include="css\fonts\glyphs\WebComponentsIcons.eot" />
+    <Content Include="css\fonts\glyphs\WebComponentsIcons.ttf" />
+    <Content Include="css\fonts\glyphs\WebComponentsIcons.woff" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -80,6 +182,18 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
