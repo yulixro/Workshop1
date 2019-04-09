@@ -21,6 +21,7 @@
         </nav>
     </header>
     <main>
+        <div id="delete_dialog"></div>
         <div class="uk-container align-center">
             <div class="uk-card uk-text-left uk-width-1-3">
                 <form id="book_form">
@@ -30,31 +31,38 @@
                         </li>
                         <li>
                             <label class="required">圖書類別</label>
-                            <select id="book_category"></select>
+                            <select id="book_category" name="book_category"></select>
+                            <span class="k-invalid-msg" data-for="book_category"></span>
                         </li>
                         <li>
                             <label class="required">書名</label>
-                            <input id="book_name" type="text" />
+                            <input id="book_name" name="book_name" required validationMessage="請填入書名" type="text" />
+                            <span class="k-invalid-msg" data-for="book_name"></span>
                         </li>
                         <li>
                             <label class="required">作者</label>
-                            <input id="book_author" type="text" />
+                            <input id="book_author" name="book_author" required validationMessage="請填入作者名稱" type="text" />
+                            <span class="k-invalid-msg" data-for="book_author"></span>
                         </li>
                         <li>
                             <label class="required">購買日期</label>
-                            <input id="bought_datepicker"/>
+                            <input id="bought_datepicker" name="bought_datepicker" validationMessage="請填入購買日期" />
+                            <span class="k-invalid-msg" data-for="bought_datepicker"></span>
                         </li>
                         <li>
                             <label>送達日期</label>
-                            <input id="delivered_datepicker" />
+                            <input id="delivered_datepicker" name="delivered_datepicker" />
+                            <span class="k-invalid-msg" data-for="delivered_datepicker"></span>
                         </li>
                         <li>
                             <label class="required">金額</label>
-                            <input id="book_price" type="text"/>
+                            <input id="book_price" name="book_price" required validationMessage="請填入金額" type="text" />
+                            <span class="k-invalid-msg" data-for="book_price"></span>
                         </li>
                         <li>
                             <label class="required">數量</label>
-                            <input id="book_amount" type="text" />
+                            <input id="book_amount" name="book_amount"required validationMessage="請填入數量" type="text" />
+                            <span class="k-invalid-msg" data-for="book_amount"></span>
                         </li>
                         <li>
                             <span>
@@ -72,6 +80,7 @@
             </div>
         </div>
     </main>
+
     <footer></footer>
     <script type="text/javascript" src="data/book-data.js"></script>
     <script src="./js/jquery-2.1.4.min.js"></script>
