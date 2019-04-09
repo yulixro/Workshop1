@@ -125,7 +125,20 @@ $(function () {
         var value = $("#book_search").val();
         grid = $("#book_grid").data("kendoGrid");
         if (value) {
-
+            grid.dataSource.filter({
+                filters: [
+                    {
+                        field: "BookName",
+                        operator: "contains",
+                        value: value
+                    }, {
+                        field: "BookAuthor",
+                        operator: "contains",
+                        value: value
+                    }]
+            });
+        } else {
+            grid.dataSource.filter({});
         }
     });
 
