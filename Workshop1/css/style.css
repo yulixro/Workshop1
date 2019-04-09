@@ -131,9 +131,14 @@ main {
     width: 100%;
 }
 #book_form .k-invalid-msg {
-    padding: 0.5rem 0px;   
+    padding: 0.3rem 0px; 
+    width: 30%;
 }
 
 #book_form {
     display: none;
+}
+
+.k-numeric-wrap > input {
+    text-align: right;
 }

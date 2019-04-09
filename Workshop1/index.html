@@ -56,12 +56,12 @@
                         </li>
                         <li>
                             <label class="required">金額</label>
-                            <input id="book_price" name="book_price" required validationMessage="請填入金額" type="text" />
+                            <input id="book_price" name="book_price" min="0" required validationMessage="請填入金額" value="0" type="text" />
                             <span class="k-invalid-msg" data-for="book_price"></span>
                         </li>
                         <li>
                             <label class="required">數量</label>
-                            <input id="book_amount" name="book_amount"required validationMessage="請填入數量" type="text" />
+                            <input id="book_amount" name="book_amount" min="1" required validationMessage="請填入數量" value="1" type="text" />
                             <span class="k-invalid-msg" data-for="book_amount"></span>
                         </li>
                         <li>

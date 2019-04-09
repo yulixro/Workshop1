@@ -46,6 +46,12 @@ function deleteConfirm(e) {
 
 }
 
+//變換圖片
+function onChange() {
+    val = "image/" + $("#book_category").val() + ".jpg";
+    $(".book-image").attr("src", val);
+}
+
 $(function () {
     loadBookData();
     //套用Grid
@@ -118,14 +124,17 @@ $(function () {
     $("#book_search").css({
         "background-color": "#484891",
         "border-width": 0,
-        "width": "30rem"
+        "width": "30rem",
+        "color": "white"
     });
     //搜尋事件
     $("#book_search").keyup(function () {
         var value = $("#book_search").val();
-        grid = $("#book_grid").data("kendoGrid");
+        var grid = $("#book_grid").data("kendoGrid");
         if (value) {
+            console.log(value);
             grid.dataSource.filter({
+                logic: "or",
                 filters: [
                     {
                         field: "BookName",
@@ -148,14 +157,14 @@ $(function () {
     $("#book_search").kendoMaskedTextBox();
     $("#book_name").kendoMaskedTextBox();
     $("#book_author").kendoMaskedTextBox();
-    $("#book_price").kendoNumericTextBox();
-    $("#book_amount").kendoNumericTextBox();
+    $("#book_price, #book_amount").kendoNumericTextBox({ format:"n0", decimals: 0 });
     //套用DropDownList
     $("#book_category").kendoDropDownList({
         optionLabel: "--請選擇類別--",
         dataSource: bookCategoryList,
         dataTextField: "text",
-        dataValueField: "value"
+        dataValueField: "value",
+        change: onChange
     });
     //套用DatePicker
     $("#bought_datepicker").kendoDatePicker({
@@ -182,7 +191,7 @@ $(function () {
             window.data("kendoWindow").center().open();
         }
     });
-    //篩選Input條件
+    //驗證Input條件
     var validator = $("#book_form").kendoValidator().data("kendoValidator"),
         status = $(".status");
     //12456
@@ -203,6 +212,19 @@ $(function () {
         click: function (e) {
 
         }
+    });
+    //改變金額,數量
+    $("#book_amount, #book_price").change(function () {
+        if ($(this).val() != "") {
+            var amount = parseInt($("#book_amount").val());
+            var price = parseInt($("#book_price").val());
+            $("#book_total").text(amount * price);
+        } else {
+            $(this).data("kendoNumericTextBox").value($(this).attr("min"));
+            $(this).trigger("change");
+        }
+        
+
     });
 
 
