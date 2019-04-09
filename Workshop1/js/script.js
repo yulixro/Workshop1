@@ -153,14 +153,13 @@ $(function () {
 
     //設定今天日期
     var todayDate = kendo.toString(kendo.parseDate(new Date()), 'yyyy-MM-dd');
-    //套用Inputs
+    //套用TextBox
     $("#book_search").kendoMaskedTextBox();
     $("#book_name").kendoMaskedTextBox();
     $("#book_author").kendoMaskedTextBox();
-    $("#book_price, #book_amount").kendoNumericTextBox({ format:"n0", decimals: 0 });
+    $("#book_price, #book_amount").kendoNumericTextBox({ format: "n0", decimals: 0 });
     //套用DropDownList
     $("#book_category").kendoDropDownList({
-        optionLabel: "--請選擇類別--",
         dataSource: bookCategoryList,
         dataTextField: "text",
         dataValueField: "value",
@@ -169,11 +168,13 @@ $(function () {
     //套用DatePicker
     $("#bought_datepicker").kendoDatePicker({
         value: todayDate,
-        format: "yyyy-MM-dd"
+        format: "yyyy-MM-dd",
+        parseFormats: ["yyyy/MM/dd", "yyyyMMdd"]
     });
     $("#delivered_datepicker").kendoDatePicker({
         value: todayDate,
-        format: "yyyy-MM-dd"
+        format: "yyyy-MM-dd",
+        parseFormats: ["yyyy/MM/dd", "yyyyMMdd"]
     });
     //建立新增書籍window
     var window = $("#book_form").kendoWindow({
@@ -192,21 +193,33 @@ $(function () {
         }
     });
     //驗證Input條件
-    var validator = $("#book_form").kendoValidator().data("kendoValidator"),
-        status = $(".status");
-    //12456
-    $("form").submit(function (e) {
-        e.preventDefault();
-        if (validator.validate()) {
-            status.text("Hooray! Your tickets has been booked!")
-                .removeClass("invalid")
-                .addClass("valid");
-        } else {
-            status.text("Oops! There is invalid data in the form.")
-                .removeClass("valid")
-                .addClass("invalid");
+    var validator = $("#book_form").kendoValidator({
+        rules: {
+            datepicker: function (input) {
+                if (input.is("[data-role=datepicker]")) {
+                    return input.data("kendoDatePicker").value();
+                } else {
+                    return true;
+                }
+            }
+        },
+        messages: {
+            datepicker: "請輸入正確日期"
         }
-    });
+    }).data("kendoValidator");
+        //12456
+        $("form").submit(function (e) {
+            e.preventDefault();
+            if (validator.validate()) {
+                status.text("Hooray! Your tickets has been booked!")
+                    .removeClass("invalid")
+                    .addClass("valid");
+            } else {
+                status.text("Oops! There is invalid data in the form.")
+                    .removeClass("valid")
+                    .addClass("invalid");
+            }
+        });
     //儲存新增
     $("#save_book").kendoButton({
         click: function (e) {
@@ -223,7 +236,7 @@ $(function () {
             $(this).data("kendoNumericTextBox").value($(this).attr("min"));
             $(this).trigger("change");
         }
-        
+
 
     });
 
