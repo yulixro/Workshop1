@@ -54,7 +54,7 @@ function onChange() {
 
 $(function () {
     loadBookData();
-    //套用Grid
+    //Grid
     $("#book_grid").kendoGrid({
         dataSource: {
             data: bookDataFromLocalStorage,
@@ -100,8 +100,12 @@ $(function () {
         }, {
             field: "BookDeliveredDate",
             title: "送達狀態",
-            template: function (e) {
-
+            template: function (dataItem) {
+                if (dataItem.BookDeliveredDate != undefined) {
+                    return "<span title=" + dataItem.BookDeliveredDate + "><i class='fas fa-truck'></i></span>";
+                } else {
+                    return "";
+                }
             }
         }, {
             field: "BookPrice",
@@ -120,6 +124,14 @@ $(function () {
         }]
 
     });
+    //
+    $("#book_grid").kendoTooltip({
+        filter: "span",
+        position: "bottom",
+        width: 120
+    });
+
+
     //設定搜尋欄css
     $("#book_search").css({
         "background-color": "#484891",
@@ -153,28 +165,30 @@ $(function () {
 
     //設定今天日期
     var todayDate = kendo.toString(kendo.parseDate(new Date()), 'yyyy-MM-dd');
-    //套用TextBox
+    //TextBox
     $("#book_search").kendoMaskedTextBox();
     $("#book_name").kendoMaskedTextBox();
     $("#book_author").kendoMaskedTextBox();
     $("#book_price, #book_amount").kendoNumericTextBox({ format: "n0", decimals: 0 });
-    //套用DropDownList
+    //DropDownList
     $("#book_category").kendoDropDownList({
         dataSource: bookCategoryList,
         dataTextField: "text",
         dataValueField: "value",
         change: onChange
     });
-    //套用DatePicker
+    //DatePicker
     $("#bought_datepicker").kendoDatePicker({
         value: todayDate,
         format: "yyyy-MM-dd",
-        parseFormats: ["yyyy/MM/dd", "yyyyMMdd"]
+        parseFormats: ["yyyy/MM/dd", "yyyyMMdd"],
+        footer: "#: kendo.toString(data, 'yyyy') # 年 #: kendo.toString(data, 'MM') # 月 #: kendo.toString(data, 'dd') # 日"
     });
     $("#delivered_datepicker").kendoDatePicker({
         value: todayDate,
         format: "yyyy-MM-dd",
-        parseFormats: ["yyyy/MM/dd", "yyyyMMdd"]
+        parseFormats: ["yyyy/MM/dd", "yyyyMMdd"],
+        footer: "#: kendo.toString(data, 'yyyy') # 年 #: kendo.toString(data, 'MM') # 月 #: kendo.toString(data, 'dd') # 日"
     });
     //建立新增書籍window
     var window = $("#book_form").kendoWindow({
@@ -192,38 +206,48 @@ $(function () {
             window.data("kendoWindow").center().open();
         }
     });
-    //驗證Input條件
+    //驗證Input
     var validator = $("#book_form").kendoValidator({
         rules: {
-            datepicker: function (input) {
+            //輸入值是否為正確日期格式
+            dateCorrect: function (input) {
                 if (input.is("[data-role=datepicker]")) {
                     return input.data("kendoDatePicker").value();
+                } else {
+                    return true;
+                }
+            },
+            //購買日期不可晚於今天
+            datePicker: function (input) {
+                if (input.is("#bought_datepicker")) {
+                    return input.data("kendoDatePicker").value() <= new Date(todayDate);
+                } else {
+                    return true;
+                }
+            },
+            //送達日期不可早於購買日期
+            datePicker2: function (input) {
+                if (input.is("#delivered_datepicker")) {
+                    return input.data("kendoDatePicker").value() >= $("#bought_datepicker").data("kendoDatePicker").value();
                 } else {
                     return true;
                 }
             }
         },
         messages: {
-            datepicker: "請輸入正確日期"
+            dateCorrect: "請輸入正確日期",
+            datePicker: "購買日期不可晚於今天",
+            datePicker2: "送達日期不可早於購買日期"
         }
     }).data("kendoValidator");
-        //12456
-        $("form").submit(function (e) {
-            e.preventDefault();
-            if (validator.validate()) {
-                status.text("Hooray! Your tickets has been booked!")
-                    .removeClass("invalid")
-                    .addClass("valid");
-            } else {
-                status.text("Oops! There is invalid data in the form.")
-                    .removeClass("valid")
-                    .addClass("invalid");
-            }
-        });
+
     //儲存新增
     $("#save_book").kendoButton({
         click: function (e) {
-
+            e.preventDefault();
+            if (validator.validate()) {
+                $("#book_form").data("kendoWindow").close();
+            }
         }
     });
     //改變金額,數量
@@ -232,13 +256,12 @@ $(function () {
             var amount = parseInt($("#book_amount").val());
             var price = parseInt($("#book_price").val());
             $("#book_total").text(amount * price);
+            $("#book_total").text(parseInt($("#book_total").text()).toLocaleString());
         } else {
             $(this).data("kendoNumericTextBox").value($(this).attr("min"));
             $(this).trigger("change");
         }
 
-
     });
-
 
 });
