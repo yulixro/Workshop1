@@ -17,14 +17,12 @@ function loadBookData() {
     }
 }
 
-
 //建立確認刪除dialog
 function deleteConfirm(e) {
 
     e.preventDefault();
     var dialog = $("#delete_dialog");
     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    var data = this.dataItem("tr");
     dialog.kendoDialog({
         width: "450px",
         closable: false,
@@ -35,7 +33,7 @@ function deleteConfirm(e) {
                 text: '確定',
                 primary: true,
                 action: function (e) {
-                    $("#book_grid").data("kendoGrid").dataSource.remove(data);
+                    $("#book_grid").data("kendoGrid").dataSource.remove(dataItem);
                 }
             }
         ],
@@ -53,7 +51,9 @@ function onChange() {
 }
 
 $(function () {
+
     loadBookData();
+
     //Grid
     $("#book_grid").kendoGrid({
         dataSource: {
@@ -102,7 +102,7 @@ $(function () {
             title: "送達狀態",
             template: function (dataItem) {
                 if (dataItem.BookDeliveredDate != undefined) {
-                    return "<span title=" + dataItem.BookDeliveredDate + "><i class='fas fa-truck'></i></span>";
+                    return "<i class='fas fa-truck' title=" + dataItem.BookDeliveredDate + "></i>";
                 } else {
                     return "";
                 }
@@ -124,13 +124,13 @@ $(function () {
         }]
 
     });
-    //
+
+    //Tooltip
     $("#book_grid").kendoTooltip({
-        filter: "span",
+        filter: "i",
         position: "bottom",
         width: 120
     });
-
 
     //設定搜尋欄css
     $("#book_search").css({
@@ -139,6 +139,7 @@ $(function () {
         "width": "30rem",
         "color": "white"
     });
+
     //搜尋事件
     $("#book_search").keyup(function () {
         var value = $("#book_search").val();
@@ -165,11 +166,13 @@ $(function () {
 
     //設定今天日期
     var todayDate = kendo.toString(kendo.parseDate(new Date()), 'yyyy-MM-dd');
+
     //TextBox
     $("#book_search").kendoMaskedTextBox();
     $("#book_name").kendoMaskedTextBox();
     $("#book_author").kendoMaskedTextBox();
     $("#book_price, #book_amount").kendoNumericTextBox({ format: "n0", decimals: 0 });
+
     //DropDownList
     $("#book_category").kendoDropDownList({
         dataSource: bookCategoryList,
@@ -177,6 +180,7 @@ $(function () {
         dataValueField: "value",
         change: onChange
     });
+
     //DatePicker
     $("#bought_datepicker").kendoDatePicker({
         value: todayDate,
@@ -190,6 +194,7 @@ $(function () {
         parseFormats: ["yyyy/MM/dd", "yyyyMMdd"],
         footer: "#: kendo.toString(data, 'yyyy') # 年 #: kendo.toString(data, 'MM') # 月 #: kendo.toString(data, 'dd') # 日"
     });
+
     //建立新增書籍window
     var window = $("#book_form").kendoWindow({
         width: "615px",
@@ -199,6 +204,7 @@ $(function () {
         scrollable: true,
         modal: true
     });
+
     //點擊新增書籍button事件
     $("#add_book").kendoButton({
         click: function (e) {
@@ -206,17 +212,22 @@ $(function () {
             window.data("kendoWindow").center().open();
         }
     });
+
     //驗證Input
     var validator = $("#book_form").kendoValidator({
         rules: {
+
             //輸入值是否為正確日期格式
             dateCorrect: function (input) {
-                if (input.is("[data-role=datepicker]")) {
+                if (input.is("#bought_datepicker")) {
                     return input.data("kendoDatePicker").value();
+                } else if (input.is("#delivered_datepicker")) {
+                    return input.data("kendoDatePicker").value() || input.val() == "";
                 } else {
                     return true;
                 }
             },
+
             //購買日期不可晚於今天
             datePicker: function (input) {
                 if (input.is("#bought_datepicker")) {
@@ -225,10 +236,11 @@ $(function () {
                     return true;
                 }
             },
+
             //送達日期不可早於購買日期
             datePicker2: function (input) {
                 if (input.is("#delivered_datepicker")) {
-                    return input.data("kendoDatePicker").value() >= $("#bought_datepicker").data("kendoDatePicker").value();
+                    return input.data("kendoDatePicker").value() >= $("#bought_datepicker").data("kendoDatePicker").value() || input.val() == "";
                 } else {
                     return true;
                 }
@@ -246,10 +258,34 @@ $(function () {
         click: function (e) {
             e.preventDefault();
             if (validator.validate()) {
+                var categoryValue = $("#book_category").val();
+                var nameValue = $("#book_name").val();
+                var authorValue = $("#book_author").val();
+                var boughtValue = $("#bought_datepicker").val();
+                var deliveredValue = $("#delivered_datepicker").val();
+                var priceValue = $("#book_price").val();
+                var amountValue = $("#book_amount").val();
+                var totalValue = parseInt(priceValue * amountValue);
+                inputObject = {
+                    BookId: bookDataFromLocalStorage.length + 1,
+                    BookCategory: categoryValue,
+                    BookName: nameValue,
+                    BookAuthor: authorValue,
+                    BookBoughtDate: boughtValue,
+                    BookDeliveredDate: deliveredValue,
+                    BookPrice: priceValue,
+                    BookAmount: amountValue,
+                    BookTotal: totalValue
+                };
+                bookDataFromLocalStorage.push(inputObject);
+                stringJson = JSON.stringify(bookDataFromLocalStorage);
+                localStorage.setItem('bookData', stringJson);
+                $("#book_grid").data("kendoGrid").dataSource.read();
                 $("#book_form").data("kendoWindow").close();
             }
         }
     });
+
     //改變金額,數量
     $("#book_amount, #book_price").change(function () {
         if ($(this).val() != "") {
@@ -261,7 +297,6 @@ $(function () {
             $(this).data("kendoNumericTextBox").value($(this).attr("min"));
             $(this).trigger("change");
         }
-
     });
 
 });
