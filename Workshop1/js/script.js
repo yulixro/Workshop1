@@ -62,7 +62,7 @@ $(function () {
         },
         height: 550,
         sortable: true,
-        toolbar: "<input type='text' id='book_search' placeholder='我想要找......'>",
+        toolbar: "<input type='text' class='k-textbox' id='book_search' placeholder='我想要找......'>",
         pageable: {
             numeric: false,
             input: true,
@@ -132,20 +132,11 @@ $(function () {
         width: 120
     });
 
-    //設定搜尋欄css
-    $("#book_search").css({
-        "background-color": "#484891",
-        "border-width": 0,
-        "width": "30rem",
-        "color": "white"
-    });
-
     //搜尋事件
     $("#book_search").keyup(function () {
         var value = $("#book_search").val();
         var grid = $("#book_grid").data("kendoGrid");
         if (value) {
-            console.log(value);
             grid.dataSource.filter({
                 logic: "or",
                 filters: [
@@ -168,7 +159,6 @@ $(function () {
     var todayDate = kendo.toString(kendo.parseDate(new Date()), 'yyyy-MM-dd');
 
     //TextBox
-    $("#book_search").kendoMaskedTextBox();
     $("#book_name").kendoMaskedTextBox();
     $("#book_author").kendoMaskedTextBox();
     $("#book_price, #book_amount").kendoNumericTextBox({ format: "n0", decimals: 0 });
@@ -267,7 +257,7 @@ $(function () {
                 var amountValue = $("#book_amount").val();
                 var totalValue = parseInt(priceValue * amountValue);
                 inputObject = {
-                    BookId: bookDataFromLocalStorage.length + 1,
+                    BookId: (bookDataFromLocalStorage[(bookDataFromLocalStorage.length) - 1].BookId) + 1,
                     BookCategory: categoryValue,
                     BookName: nameValue,
                     BookAuthor: authorValue,
@@ -298,5 +288,4 @@ $(function () {
             $(this).trigger("change");
         }
     });
-
 });

@@ -127,13 +127,14 @@ main {
     margin: 1.5rem auto;
 }
 
-#book_form .k-widget {
-    width: 100%;
-}
-#book_form .k-invalid-msg {
-    padding: 0.3rem 0px; 
-    width: 30%;
-}
+    #book_form .k-widget {
+        width: 100%;
+    }
+
+    #book_form .k-invalid-msg {
+        padding: 0.3rem 0px;
+        width: 30%;
+    }
 
 #book_form {
     display: none;
@@ -141,4 +142,11 @@ main {
 
 .k-numeric-wrap > input {
     text-align: right;
+}
+
+#book_search {
+    background-color: #484891 ;
+    border-width: 0;
+    width: 30rem;
+    color: white ;
 }
